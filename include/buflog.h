@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 41nya
+ * All rights reserved.
+ */
 #ifndef BUFLOG_BUFLOG_H
 #define BUFLOG_BUFLOG_H
 

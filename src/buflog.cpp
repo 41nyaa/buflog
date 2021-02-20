@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 41nya
+ * All rights reserved.
+ */
 #include "buflog.h"
 
 #include "sharedbuffer.h"

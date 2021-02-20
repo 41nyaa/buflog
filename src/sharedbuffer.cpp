@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021 41nya
+ * All rights reserved.
+ */
 #include "sharedbuffer.h"
 
 #include <errno.h>
