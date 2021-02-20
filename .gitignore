@@ -1,0 +1,6 @@
+Makefile
+*.cmake
+CMakeCache.txt
+CMakeFiles
+*.a
+cpplint.py
