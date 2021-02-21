@@ -5,3 +5,4 @@ CMakeFiles
 *.a
 cpplint.py
 lintresult.txt
+googletest
