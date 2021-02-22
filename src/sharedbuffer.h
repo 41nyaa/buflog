@@ -2,25 +2,25 @@
  * Copyright (c) 2021 41nya
  * All rights reserved.
  */
-#ifndef BUFLOG_INTERNAL_SHAREDBUFFER_H
-#define BUFLOG_INTERNAL_SHAREDBUFFER_H
+#ifndef SRC_SHAREDBUFFER_H_
+#define SRC_SHAREDBUFFER_H_
 
-#include<string>
+#include <string>
 
 namespace buflog {
 
 class SharedBuffer {
-public:
+ public:
     SharedBuffer(const std::string name, const int size);
     ~SharedBuffer();
     void Write(std::string msg);
 
-private:
+ private:
     int shmid;
     void* shmaddr;
     int bufsize;
-    unsigned long long writeaddr;
+    uint64_t writeaddr;
     std::string errstr;
 };
-}
-#endif /* BUFLOG_INTERNAL_SHAREDBUFFER_H */
+}  // namespace buflog
+#endif  // SRC_SHAREDBUFFER_H_

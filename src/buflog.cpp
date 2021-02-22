@@ -2,9 +2,11 @@
  * Copyright (c) 2021 41nya
  * All rights reserved.
  */
-#include "buflog.h"
+#include <buflog.h>
 
-#include "sharedbuffer.h"
+#include <string>
+
+#include "./sharedbuffer.h"
 
 namespace buflog {
 
@@ -17,10 +19,9 @@ Logger::~Logger() {
 }
 
 void Logger::Log(std::string msg) {
-
 }
 
 int Logger::Flush() {
     return 0;
 }
-}   /* buflog */
+}  // namespace buflog

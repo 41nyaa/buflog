@@ -2,8 +2,8 @@
  * Copyright (c) 2021 41nya
  * All rights reserved.
  */
-#ifndef BUFLOG_BUFLOG_H
-#define BUFLOG_BUFLOG_H
+#ifndef INCLUDE_BUFLOG_H_
+#define INCLUDE_BUFLOG_H_
 
 #include <string>
 
@@ -11,14 +11,14 @@ namespace buflog {
 class SharedBuffer;
 
 class Logger {
-public:
+ public:
     Logger(const std::string filename, const int size);
     ~Logger();
     void Log(std::string msg);
     int Flush();
 
-private:
+ private:
     SharedBuffer* bufptr;
 };
-}
-#endif /* BUFLOG_BUFLOG_H */
+}  // namespace buflog
+#endif  // INCLUDE_BUFLOG_H_
