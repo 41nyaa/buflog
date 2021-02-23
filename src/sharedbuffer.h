@@ -7,20 +7,28 @@
 
 #include <string>
 
+namespace buflogtest {
+    class SharedBufferTest;
+}  // buflogtest
+
 namespace buflog {
 
 class SharedBuffer {
  public:
     SharedBuffer(const std::string name, const int size);
     ~SharedBuffer();
-    void Write(std::string msg);
+    void Write(std::string& msg);
 
  private:
     int shmid;
     void* shmaddr;
     int bufsize;
-    uint64_t writeaddr;
+    void* writeaddr;
     std::string errstr;
+
+    //for unittest
+    friend class buflogtest::SharedBufferTest;
 };
+
 }  // namespace buflog
 #endif  // SRC_SHAREDBUFFER_H_

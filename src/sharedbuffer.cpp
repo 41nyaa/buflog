@@ -26,19 +26,20 @@ SharedBuffer::SharedBuffer(const std::string name, const int size)
         return;
     }
 
-    shmid = shmget(key, size, IPC_CREAT);
+    shmid = shmget(key, bufsize, IPC_CREAT | 0666);
     if (-1 == shmid) {
         ToErrStr(&errstr, __func__, errno);
         return;
     }
 
     shmaddr = shmat(shmid, NULL, 0);
-    if (NULL == shmaddr) {
+    if ((void*)-1 == shmaddr) {
         ToErrStr(&errstr, __func__, errno);
         return;
     }
 
-    memset(shmaddr, 0x0, size);
+    memset(shmaddr, 0x0, bufsize);
+    writeaddr = shmaddr;
 }
 
 SharedBuffer::~SharedBuffer() {
@@ -49,19 +50,20 @@ SharedBuffer::~SharedBuffer() {
     }
 }
 
-void SharedBuffer::Write(std::string msg) {
+void SharedBuffer::Write(std::string& msg) {
     char* msgptr = const_cast<char*>(msg.c_str());
     int  msgsize = msg.size();
-    int  remain = writeaddr + msg.size() - (bufsize - 1);
+    int  remain = reinterpret_cast<int64_t>(writeaddr) + msgsize
+                        - (reinterpret_cast<int64_t>(shmaddr) + bufsize); 
     if (remain > 0) {
-        memcpy(reinterpret_cast<void*>(writeaddr), msgptr, msgsize - remain);
+        memcpy(writeaddr, msgptr, msgsize - remain);
         msgptr += msgsize - remain;
 
         memcpy(shmaddr, msgptr, remain);
-        writeaddr = reinterpret_cast<uint64_t>(shmaddr) + remain;
+        writeaddr = reinterpret_cast<char*>(shmaddr) + remain;
     } else {
-        memcpy(reinterpret_cast<void*>(writeaddr), msgptr, msgsize);
-        writeaddr += msgsize;
+        memcpy(writeaddr, msgptr, msgsize);
+        writeaddr = (char*)writeaddr + msgsize;
     }
 }
 }  /// namespace buflog
