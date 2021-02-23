@@ -10,3 +10,4 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 include_directories(include)
 add_subdirectory(src)
+add_subdirectory(tests)

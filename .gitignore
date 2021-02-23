@@ -7,3 +7,4 @@ cpplint.py
 lintresult.txt
 googletest
 .DS_Store
+*.out
