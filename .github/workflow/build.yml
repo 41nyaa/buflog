@@ -1,9 +1,0 @@
-name: release
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout
-      - run: cmake .
-      - run: make
