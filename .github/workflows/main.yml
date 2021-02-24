@@ -25,10 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
       - name: Run cmake
         run: cmake .
 
-      # Runs a set of commands using the runners shell
+      - name: Run setup googltest
+        run: sh tests/setup_gtest.sh
+
       - name: Run make
         run: make
