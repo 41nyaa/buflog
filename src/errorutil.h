@@ -14,11 +14,7 @@ inline void ToErrStr(
         const char* func,
         const int errnum) {
     char strerrno[128]{};
-    if (-1 == strerror_r(errnum, strerrno, sizeof(strerrno))) {
-        *errstr = std::string(func) + std::string(" ") + std::to_string(errnum);
-    } else {
-        *errstr = std::string(func) + std::string(" ") + std::string(strerrno);
-    }
+    *errstr = std::string(func) + std::string(" errno:") + std::to_string(errnum);
 }
 
 }  // namespace buflog
