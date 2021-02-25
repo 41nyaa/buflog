@@ -25,12 +25,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: cd
-        run: cd tests
       - name: Setup googletest
-        run: sh setup_gtest.sh
-      - name: back
-        run: ..
+        run: git clone https://github.com/google/googletest.git tests/googletest
+      - name: cmake googletest
+        run: cmake tests/googletest
+      - name: make googletest
+        run: make -C tests/googletest
 
       - name: Run cmake
         run: cmake .
