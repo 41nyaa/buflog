@@ -27,8 +27,12 @@ jobs:
 
       - name: Setup googletest
         run: git clone https://github.com/google/googletest.git tests/googletest
+      - name: cd googletest
+        run: cd tests/googletest
       - name: cmake googletest
-        run: cmake tests/googletest
+        run: cmake .
+      - name: back
+        run: cd ../..
       - name: make googletest
         run: make -C tests/googletest
 
