@@ -34,6 +34,12 @@ jobs:
       - name: Run make
         run: make
         
+      - name: Run cmake tests
+        run: cmake tests
+        
+      - name: Run make tests
+        run: make -C tests
+        
       - name: Run googletest
         run: tests/buflog_unittest.out
         
