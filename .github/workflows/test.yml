@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: build
+name: test
 
 # Controls when the action will run. 
 on:
@@ -25,5 +25,21 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Setup googletest
+        run: sh tests/setup_gtest.sh
+        
       - name: Run cmake
         run: cmake .
+        
+      - name: Run make
+        run: make
+        
+      - name: Run cmake tests
+        run: cmake tests
+        
+      - name: Run make tests
+        run: make -C tests
+        
+      - name: Run googletest
+        run: tests/buflog_unittest.out
+        
