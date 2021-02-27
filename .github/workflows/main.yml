@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: build+test
+name: ci
 
 # Controls when the action will run. 
 on:
@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  setup:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,17 +31,7 @@ jobs:
         run: make -C ./tests/googletest
       - name: cmake project
         run: cmake .
-
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - name: make project
         run: make
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Run googletest
         run: tests/buflog_unittest.out
