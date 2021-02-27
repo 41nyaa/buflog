@@ -19,6 +19,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      gtest-dir: ./tests/googletest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,18 +28,15 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup googletest
-        run: git clone https://github.com/google/googletest.git tests/googletest
-      - name: cd googletest
-        run: cd tests/googletest
+        run: git clone https://github.com/google/googletest.git googletest
+        working-directory: ./tests
       - name: cmake googletest
         run: cmake .
-      - name: back
-        run: cd ../..
+        working-directory: ./tests/googletest
       - name: make googletest
         run: make -C tests/googletest
-
+        working-directory: ./tests/googletest
       - name: Run cmake
         run: cmake .
-
       - name: Run make
         run: make
