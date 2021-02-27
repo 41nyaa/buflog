@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: build
+name: build+test
 
 # Controls when the action will run. 
 on:
@@ -16,15 +16,10 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  setup:
     runs-on: ubuntu-latest
-    env:
-      gtest-dir: ./tests/googletest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: Setup googletest
@@ -36,5 +31,15 @@ jobs:
         run: make -C ./tests/googletest
       - name: cmake project
         run: cmake .
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: make project
         run: make
+
+  test:
+    needs:build
+      - name: Run googletest
+        run: tests/buflog_unittest.out
