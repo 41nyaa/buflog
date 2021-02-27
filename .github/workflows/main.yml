@@ -40,6 +40,7 @@ jobs:
         run: make
 
   test:
-    needs:build
+    needs: build
+    steps:
       - name: Run googletest
         run: tests/buflog_unittest.out
