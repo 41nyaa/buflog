@@ -41,6 +41,7 @@ jobs:
 
   test:
     needs: build
+    runs-on: ubuntu-latest
     steps:
       - name: Run googletest
         run: tests/buflog_unittest.out
