@@ -31,12 +31,10 @@ jobs:
         run: git clone https://github.com/google/googletest.git googletest
         working-directory: ./tests
       - name: cmake googletest
-        run: cmake .
-        working-directory: ./tests/googletest
+        run: cmake -B ./tests/googletest -S ./tests/googletest
       - name: make googletest
-        run: make -C tests/googletest
-        working-directory: ./tests/googletest
-      - name: Run cmake
+        run: make -C ./tests/googletest
+      - name: cmake project
         run: cmake .
-      - name: Run make
+      - name: make project
         run: make
