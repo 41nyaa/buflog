@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Setup googletest",
+            "type": "shell",
+            "command": "sh setup_gtest.sh",
+            "options": {
+                "cwd": "${workspaceFolder}/tests"
+            }
+        },
+        {
+            "label": "cmake",
+            "type": "shell",
+            "command": "cmake .",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ]
+}
