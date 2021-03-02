@@ -18,7 +18,7 @@ class Logger {
     int Flush();
 
  private:
-    SharedBuffer* bufptr;
+    SharedBuffer* buf;
 };
 }  // namespace buflog
 #endif  // INCLUDE_BUFLOG_H_

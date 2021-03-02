@@ -49,4 +49,33 @@ TEST_F(SharedBufferTest, Write) {
     EXPECT_EQ(0, std::memcmp(shmaddr, buf4, bufsize));
 };
 
+TEST_F(SharedBufferTest, Copy) {
+    std::string log1("abcdefghijklmno\n");  //16 characters
+    buf.Write(log1);
+    const char buf1[] = {"abcdefghijklmno\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
+    std::vector<char> cpbuf1;
+    buf.Copy(cpbuf1);
+    EXPECT_EQ(0, std::memcmp(&cpbuf1[0], buf1, bufsize));
+
+    std::string log2("pqrstuvwxyz1234\n");  //16 characters
+    buf.Write(log2);
+    char buf2[] = {"abcdefghijklmno\npqrstuvwxyz1234\n"};
+    std::vector<char> cpbuf2;
+    buf.Copy(cpbuf2);
+    EXPECT_EQ(0, std::memcmp(&cpbuf2[0], buf2, bufsize));
+
+    std::string log3("5678901234\n");  // 11 characters
+    buf.Write(log3);          
+    char buf3[] = {"lmno\npqrstuvwxyz1234\n5678901234\n"};
+    std::vector<char> cpbuf3;
+    buf.Copy(cpbuf3);
+    EXPECT_EQ(0, std::memcmp(&cpbuf3[0], buf3, bufsize));
+
+    std::string log4("abcdefghijklmnopqrstu\n"); // 22 characters
+    buf.Write(log4);          
+    char buf4[] = {"678901234\nabcdefghijklmnopqrstu\n"};
+    std::vector<char> cpbuf4;
+    buf.Copy(cpbuf4);
+    EXPECT_EQ(0, std::memcmp(&cpbuf4[0], buf4, bufsize));
+}
 }  // buflogtest

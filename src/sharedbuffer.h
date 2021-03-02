@@ -6,6 +6,7 @@
 #define SRC_SHAREDBUFFER_H_
 
 #include <string>
+#include <vector>
 
 namespace buflogtest {
     class SharedBufferTest;
@@ -18,6 +19,7 @@ class SharedBuffer {
     SharedBuffer(const std::string name, const int size);
     ~SharedBuffer();
     void Write(std::string& msg);
+    void Copy(std::vector<char>& buf);
 
  private:
     int shmid;
