@@ -42,7 +42,7 @@ int Logger::Flush() {
     ofs.close();
     if(ofs.bad())    //bad() function will check for badbit
     {
-        std::cout << "Error: " << strerror(errno);
+        std::cout << "Error: " << errno;
     }
 
     return 0;
