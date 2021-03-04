@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <iostream>
 
 #include "./ipcsharedbuffer.h"
 
@@ -39,6 +40,10 @@ int Logger::Flush() {
     std::ofstream ofs(filename.c_str(), std::ofstream::app);
     ofs << cpbuf.data();
     ofs.close();
+    if(ofs.bad())    //bad() function will check for badbit
+    {
+        std::cout << "Error: " << strerror(errno);
+    }
 
     return 0;
 }

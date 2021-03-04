@@ -42,6 +42,7 @@ TEST_F(BufLogTest, Flush) {
     file.read (contents, size);
     file.close();
 
+    EXPECT_EQ(strlen(buf1), size);
     EXPECT_EQ(0, std::memcmp(contents, buf1, bufsize));
     delete[] contents;
 }
