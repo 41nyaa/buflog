@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(UNITTEST_SOURCES
-    sharedbuffer_test.cpp)
+    buflog_test.cpp
+    ipcsharedbuffer_test.cpp)
 
 include_directories(../include ../src googletest/googletest/include)
 link_directories(googletest/lib)

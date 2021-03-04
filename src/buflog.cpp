@@ -6,15 +6,22 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
-#include "./sharedbuffer.h"
+#include "./ipcsharedbuffer.h"
 
 namespace buflog {
 
 Logger::Logger(const std::string filename, const int size)
-    : buf(nullptr) {
-    buf = new SharedBuffer(filename, size);
+    : filename(filename)
+    , buf(nullptr) {
+
+    std::ofstream ofs(filename.c_str(), std::ofstream::out);
+    ofs.close();
+
+    buf = new IPCSharedBuffer(filename, size);
 }
+
 Logger::~Logger() {
     delete buf;
 }
@@ -29,6 +36,14 @@ int Logger::Flush() {
     std::vector<char> cpbuf;
     buf->Copy(cpbuf);
 
+    std::ofstream ofs(filename.c_str(), std::ofstream::app);
+    ofs << cpbuf.data();
+    ofs.close();
+
     return 0;
+}
+
+bool Logger::Fail(std::string& error) {
+    return buf->Fail(error);
 }
 }  // namespace buflog

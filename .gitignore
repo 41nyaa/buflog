@@ -9,3 +9,5 @@ googletest
 .DS_Store
 *.out
 settings.json
+buflog_test.log
+compile_commands.json

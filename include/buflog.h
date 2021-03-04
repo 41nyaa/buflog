@@ -8,7 +8,7 @@
 #include <string>
 
 namespace buflog {
-class SharedBuffer;
+class ISharedBuffer;
 
 class Logger {
  public:
@@ -16,9 +16,11 @@ class Logger {
     ~Logger();
     void Log(std::string msg);
     int Flush();
+    bool Fail(std::string& error);
 
  private:
-    SharedBuffer* buf;
+    ISharedBuffer* buf;
+    std::string   filename; 
 };
 }  // namespace buflog
 #endif  // INCLUDE_BUFLOG_H_

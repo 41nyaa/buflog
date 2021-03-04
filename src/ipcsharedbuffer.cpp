@@ -3,7 +3,7 @@
  * Copyright (c) 2021 41nya
  * All rights reserved.
  */
-#include "sharedbuffer.h"
+#include "ipcsharedbuffer.h"
 
 #include <errno.h>
 #include <sys/ipc.h>
@@ -15,11 +15,10 @@
 
 namespace buflog {
 
-SharedBuffer::SharedBuffer(const std::string name, const int size)
+IPCSharedBuffer::IPCSharedBuffer(const std::string name, const int size)
         : shmid(0)
-        , shmaddr(NULL)
-        , bufsize(size)
-        , errstr("") {
+        , shmaddr(nullptr)
+        , bufsize(size) {
     key_t key = ftok(name.c_str(), 1);
     if (-1 == key) {
         ToErrStr(&errstr, __func__, errno);
@@ -42,7 +41,7 @@ SharedBuffer::SharedBuffer(const std::string name, const int size)
     writeaddr = shmaddr;
 }
 
-SharedBuffer::~SharedBuffer() {
+IPCSharedBuffer::~IPCSharedBuffer() {
     shmdt(shmaddr);
     if (-1 == shmctl(shmid, IPC_RMID, NULL)) {
         ToErrStr(&errstr, __func__, errno);
@@ -50,7 +49,7 @@ SharedBuffer::~SharedBuffer() {
     }
 }
 
-void SharedBuffer::Write(std::string& msg) {
+void IPCSharedBuffer::Write(std::string& msg) {
     char* msgptr = const_cast<char*>(msg.c_str());
     int  msgsize = msg.size();
     int  remain = reinterpret_cast<int64_t>(writeaddr) + msgsize
@@ -67,7 +66,7 @@ void SharedBuffer::Write(std::string& msg) {
     }
 }
 
-void SharedBuffer::Copy(std::vector<char>& buf) {
+void IPCSharedBuffer::Copy(std::vector<char>& buf) {
     buf.clear();
     buf.resize(bufsize);
 

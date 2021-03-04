@@ -2,16 +2,16 @@
 #include <string>
 
 #include "gtest/gtest.h"
-#include "sharedbuffer.h"
+#include "ipcsharedbuffer.h"
 
 namespace buflogtest {
 
 const int bufsize = 32;
-class SharedBufferTest : public ::testing::Test {
+class IPCSharedBufferTest : public ::testing::Test {
  public:
-    buflog::SharedBuffer buf;
+    buflog::IPCSharedBuffer buf;
 
-    SharedBufferTest() : buf(std::string("."), bufsize){
+    IPCSharedBufferTest() : buf(std::string("."), bufsize){
     }
 
     void* GetShmAddr() {
@@ -26,7 +26,7 @@ class SharedBufferTest : public ::testing::Test {
     }
  };
 
-TEST_F(SharedBufferTest, Write) {
+TEST_F(IPCSharedBufferTest, Write) {
     void* shmaddr = GetShmAddr();
     std::string log1("abcdefghijklmno\n");  //16 characters
     buf.Write(log1);
@@ -49,7 +49,7 @@ TEST_F(SharedBufferTest, Write) {
     EXPECT_EQ(0, std::memcmp(shmaddr, buf4, bufsize));
 };
 
-TEST_F(SharedBufferTest, Copy) {
+TEST_F(IPCSharedBufferTest, Copy) {
     std::string log1("abcdefghijklmno\n");  //16 characters
     buf.Write(log1);
     const char buf1[] = {"abcdefghijklmno\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
