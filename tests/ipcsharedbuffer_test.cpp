@@ -31,7 +31,7 @@ TEST_F(IPCSharedBufferTest, Write) {
     std::string log1("abcdefghijklmno\n");  //16 characters
     buf.Write(log1);
     char buf1[] = {"abcdefghijklmno\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
-    EXPECT_EQ(0, std::memcmp(shmaddr, buf1, bufsize));
+    EXPECT_EQ(0, std::memcmp(shmaddr, buf1, log1.size()));
 
     std::string log2("pqrstuvwxyz1234\n");  //16 characters
     buf.Write(log2);
@@ -55,7 +55,7 @@ TEST_F(IPCSharedBufferTest, Copy) {
     const char buf1[] = {"abcdefghijklmno\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"};
     std::vector<char> cpbuf1;
     buf.Copy(cpbuf1);
-    EXPECT_EQ(0, std::memcmp(&cpbuf1[0], buf1, bufsize));
+    EXPECT_EQ(0, std::memcmp(&cpbuf1[0], buf1, log1.size()));
 
     std::string log2("pqrstuvwxyz1234\n");  //16 characters
     buf.Write(log2);

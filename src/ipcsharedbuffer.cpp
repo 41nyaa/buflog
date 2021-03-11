@@ -68,14 +68,15 @@ void IPCSharedBuffer::Write(std::string& msg) {
 
 void IPCSharedBuffer::Copy(std::vector<char>& buf) {
     buf.clear();
-    buf.resize(bufsize);
 
     int formersize = reinterpret_cast<int64_t>(shmaddr) + bufsize
                             - reinterpret_cast<int64_t>(writeaddr); 
     if ( (0    == formersize                         ) ||
          ('\0' == *reinterpret_cast<char*>(writeaddr)) ) {
-        memcpy(&buf[0], shmaddr, bufsize);
+        buf.resize(bufsize - formersize);
+        memcpy(&buf[0], shmaddr, bufsize - formersize);
     } else {
+        buf.resize(bufsize);
         memcpy(&buf[0], writeaddr, formersize);
 
         int lattersize = reinterpret_cast<int64_t>(writeaddr) 

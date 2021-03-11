@@ -37,12 +37,11 @@ int Logger::Flush() {
     std::vector<char> cpbuf;
     buf->Copy(cpbuf);
 
-    std::ofstream ofs(filename.c_str(), std::ofstream::app);
-    ofs << cpbuf.data();
+    std::ofstream ofs(filename.c_str(), std::ofstream::out);
+    ofs.write(cpbuf.data(), cpbuf.size());
     ofs.close();
-    if(ofs.bad())    //bad() function will check for badbit
-    {
-        std::cout << "Error: " << errno;
+    if(ofs.bad()) {
+        return errno;
     }
 
     return 0;
