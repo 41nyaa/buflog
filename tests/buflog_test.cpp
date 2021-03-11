@@ -1,5 +1,6 @@
 #include <cstring>
 #include <string>
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 
@@ -41,6 +42,7 @@ TEST_F(BufLogTest, Flush) {
     file.seekg (0, std::ios::beg);
     file.read (contents, size);
     file.close();
+    perror(contents);
 
     EXPECT_EQ(strlen(buf1), size);
     EXPECT_EQ(0, std::memcmp(contents, buf1, bufsize));
