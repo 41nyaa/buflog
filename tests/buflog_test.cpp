@@ -39,6 +39,7 @@ TEST_F(BufLogTest, Flush) {
     file.seekg(0, std::ios_base::end);
     int size = file.tellg();
     contents = new char[size];
+    memset(contents, 0x0, size);
     file.seekg (0, std::ios::beg);
     file.read (contents, size);
     file.close();
