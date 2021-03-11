@@ -43,10 +43,9 @@ TEST_F(BufLogTest, Flush) {
     file.seekg (0, std::ios::beg);
     file.read (contents, size);
     file.close();
-    perror(contents);
 
     EXPECT_EQ(strlen(buf1), size);
-    EXPECT_EQ(0, std::memcmp(contents, buf1, bufsize));
+    EXPECT_EQ(0, std::memcmp(contents, buf1, size));
     delete[] contents;
 }
 }  // buflogtest
