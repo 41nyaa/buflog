@@ -13,7 +13,6 @@ inline void ToErrStr(
         std::string* errstr,
         const char* func,
         const int errnum) {
-    char strerrno[128]{};
     *errstr = std::string(func) + std::string(" errno:") + std::to_string(errnum);
 }
 

@@ -34,8 +34,4 @@ jobs:
       - name: make project
         run: make
       - name: Run googletest
-        run: tests/buflog_unittest.out
-      - name: debug ls
-        run: ls
-      - name: debug cat
-        run: cat ./buflog_test.log
+        run: ctest -V

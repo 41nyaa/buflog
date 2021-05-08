@@ -14,8 +14,8 @@
 namespace buflog {
 
 Logger::Logger(const std::string filename, const int size)
-    : filename(filename)
-    , buf(nullptr) {
+    : buf(nullptr)
+    , filename(filename) {
 
     std::ofstream ofs(filename.c_str(), std::ofstream::out);
     ofs.close();

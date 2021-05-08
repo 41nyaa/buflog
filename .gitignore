@@ -11,3 +11,7 @@ googletest
 settings.json
 buflog_test.log
 compile_commands.json
+build
+lib
+.vscode
+Testing
