@@ -5,7 +5,6 @@ CMakeFiles
 *.a
 cpplint.py
 lintresult.txt
-googletest
 .DS_Store
 *.out
 settings.json

@@ -22,8 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup googletest
-        run: git clone https://github.com/google/googletest.git googletest
+      - name: Setup submodules
+        run: git submodule update -i
         working-directory: ./tests
       - name: cmake googletest
         run: cmake -B ./tests/googletest -S ./tests/googletest
